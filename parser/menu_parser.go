@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -12,14 +11,14 @@ import (
 	"golang.org/x/exp/slog"
 )
 
-var (
-	ErrParse = errors.New("failed to parse the document")
-)
-
 type MenuParser struct {
 }
 
-func (p *MenuParser) Parse(r io.Reader) ([]domain.DayMenu, error) {
+func NewMenuParser() MenuParser {
+	return MenuParser{}
+}
+
+func (p MenuParser) Parse(r io.Reader) ([]domain.DayMenu, error) {
 	doc, err := goquery.NewDocumentFromReader(r)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create document: %v", err)
