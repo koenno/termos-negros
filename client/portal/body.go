@@ -11,7 +11,7 @@ import (
 )
 
 type MenuParser interface {
-	Parse(r io.Reader) ([]domain.DayMenu, error)
+	Parse(r io.Reader) (domain.Menu, error)
 }
 
 type BodyParser struct {
@@ -24,7 +24,7 @@ func NewBodyParser(menuParser MenuParser) BodyParser {
 	}
 }
 
-func (p BodyParser) Parse(bb []byte, headers http.Header) ([]domain.DayMenu, error) {
+func (p BodyParser) Parse(bb []byte, headers http.Header) (domain.Menu, error) {
 	if !p.validContentType(headers.Get("content-type")) {
 		return nil, fmt.Errorf("unsupported content type: %s", headers.Get("content-type"))
 	}

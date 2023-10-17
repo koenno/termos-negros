@@ -18,13 +18,13 @@ func NewMenuParser() MenuParser {
 	return MenuParser{}
 }
 
-func (p MenuParser) Parse(r io.Reader) ([]domain.DayMenu, error) {
+func (p MenuParser) Parse(r io.Reader) (domain.Menu, error) {
 	doc, err := goquery.NewDocumentFromReader(r)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create document: %v", err)
 	}
 
-	var menu []domain.DayMenu
+	var menu domain.Menu
 	doc.Find(".card-header").Each(func(_ int, div *goquery.Selection) {
 		text := div.Text()
 		if !matchDay(text) {

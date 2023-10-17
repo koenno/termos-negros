@@ -47,10 +47,10 @@ func TestShouldReturnPayloadBytesAndContentTypeWhenNoError(t *testing.T) {
 	limiterMock.EXPECT().Wait(req.Context()).Return(nil).Once()
 
 	// when
-	payload, contentType, err := sut.Send(req)
+	payload, headers, err := sut.Send(req)
 
 	// then
 	assert.NoError(t, err)
+	assert.Equal(t, expectedContentType, headers.Get("content-type"))
 	assert.Equal(t, expectedBytes, payload)
-	assert.Equal(t, expectedContentType, contentType)
 }

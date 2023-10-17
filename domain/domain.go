@@ -2,6 +2,8 @@ package domain
 
 import "time"
 
+type Menu []DayMenu
+
 type DayMenu struct {
 	Date  time.Time
 	Meals []Meal
