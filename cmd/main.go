@@ -8,6 +8,7 @@ import (
 
 	"github.com/koenno/termos-negros/client"
 	"github.com/koenno/termos-negros/client/portal"
+	"github.com/koenno/termos-negros/filter"
 	"github.com/koenno/termos-negros/parser"
 	"golang.org/x/time/rate"
 )
@@ -33,9 +34,6 @@ func main() {
 	}
 
 	now := time.Now()
-	for _, m := range menu {
-		if m.Date.Day() == now.Day() && m.Date.Month() == now.Month() {
-			fmt.Println(m)
-		}
-	}
+	filtered := filter.Since(now, menu)
+	fmt.Println(filtered)
 }
